@@ -172,7 +172,7 @@ def process_greek():
     fill_complex_fields(lang)
     fill_sources(lang)
     fill_variants(lang)
-    print("greek has been processed!")
+    print("greek has been processed!\n")
 
 
 def process_polish():
@@ -182,7 +182,7 @@ def process_polish():
     fill_complex_fields(lang)
     fill_sources(lang)
     fill_variants(lang)
-    print("polish has been processed!")
+    print("polish has been processed!\n")
 
 
 def main():
