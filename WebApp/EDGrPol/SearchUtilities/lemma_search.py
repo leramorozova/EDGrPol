@@ -12,10 +12,14 @@ def full_lemma_search(request):
     :return: array of result lemmas
     """
     db = Database()
-    result = db.execute("""SELECT * FROM SimpleFields
+    result = db.execute("""SELECT lemma_rus FROM simple_fields
+                            WHERE lemma_rus LIKE '%""" + request + """%'
                """, 0)
+    ret = []
     if result is not None:
-        return result
+        for lemma in result:
+            ret.append(lemma[0])
+        return ret
     else:
         pass  # тут будет фонетический поиск и всякое такое
     return None

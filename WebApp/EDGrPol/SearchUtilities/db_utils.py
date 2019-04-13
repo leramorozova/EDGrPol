@@ -1,22 +1,21 @@
-import sqlite3
 import os
+from django.db import connection
 
 NAME = 'GrPolDict.db'
 
 
 class Database:
     def __init__(self):
-        self._connection = sqlite3.connect(os.path.join("..", "..", NAME))
+        self.cur = connection.cursor()
 
     def commit(self):
-        self._connection.commit()
+        self.cur.commit()
 
     def execute(self, q, arg):
-        cur = self._connection.cursor()
         if arg != 0:
-            cur.execute(q, arg)
+            self.cur.execute(q, arg)
         else:
-            cur.execute(q)
-        res = cur.fetchall()
-        cur.close()
+            self.cur.execute(q)
+        res = self.cur.fetchall()
+        self.cur.close()
         return res

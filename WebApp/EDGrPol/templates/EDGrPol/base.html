@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -21,13 +22,22 @@
           font-size: 3.5rem;
         }
       }
+	#footer {
+	position: fixed;
+	background: #ffffff;
+        clear: both;
+    	margin: 0 auto;
+	bottom: 0;
+  	width: 100%;
+   	text-align: center;
+   }
     </style>
     <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet">
     <title>ЭСГрП</title>
   </head>
   <body>
-	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+	<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light mb-4">
   <a class="navbar-brand" href="#"><b>ЭСГрП</b></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -56,10 +66,25 @@
 	</nav>
 
 
+<main role="main" class="flex-shrink-0">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="container">
+<br>
+<br>
+      {% block content %}
+      {% endblock %}
+    </div>
+
+<!-- /container -->
+
+</main>
+
+
+<div id="footer">
 <hr>
-<footer class="container">
-  <p>&copy; Company 2017-2019</p>
-</footer>
+  <p><center><font size="2">Институт русского языка им. В.В. Виноградова РАН</font></center></p>
+</div>
 
 
     <!-- Optional JavaScript -->
