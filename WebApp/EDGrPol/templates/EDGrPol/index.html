@@ -1,14 +1,19 @@
 {% extends 'EDGrPol/base.html' %}
 
 {% block content %}
-      <h2 class="mt-5">Электронный словарь грецизмов и полонизмов</h2>
+      <center><h2 class="mt-5">Электронный словарь грецизмов и полонизмов</h2></center>
 	<br>
-      <p>Some text</p>
+      <p>Краткая аннотация словаря</p>
 	<br>
 	<form action="/search_result" method="get" required>
   		<div class="form-group">
     	<input type="text" name="lemma" class="form-control" placeholder="Введите слово...">
   	</div>
-      	<button class="btn btn-lg btn-primary" type="submit">Поиск</button>
+      	<center><button class="btn btn-lg btn-primary" type="submit">Поиск</button></center>
 	</form>
+	<br>
+<br>
+<br>
+{% load static %}
+<center><img height="255" src="{% static "/EDGrPol/emblem.jpg" %}" alt="emblem"></center>
 {% endblock %}
