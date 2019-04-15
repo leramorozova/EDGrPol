@@ -17,5 +17,7 @@ class Database:
         else:
             self.cur.execute(q)
         res = self.cur.fetchall()
-        self.cur.close()
         return res
+
+    def close(self):
+        self.cur.close()

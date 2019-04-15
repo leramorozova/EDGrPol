@@ -1,11 +1,13 @@
 {% extends 'EDGrPol/base.html' %}
 {% block content %}
-      <h2 class="mt-5">{{ lemma }}</h2>
 	<br>
+      <h3 class="mt-5">{{ lemma }}</h3>
 	{% for article in response %}
 		<hr>
 		<a href="{% url 'full_article' pk=article.id %}">{{ article.lemma }}</a>
 		<br>
+		<small class="text-muted">oт {{ article.lang }} &laquo;{{ article.original }}&raquo;;
+			{{ article.semantics }}</small>
 	{% endfor %}
 <hr>
 <br>
