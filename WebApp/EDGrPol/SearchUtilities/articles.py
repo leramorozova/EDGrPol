@@ -47,4 +47,4 @@ class FullTextArticle:
             self.dict_sources = '; '.join([el[0] for el in self.dict_sources]).rstrip().lstrip()
 #!        self.orig_sources = db.get_data(db.execute("""SELECT orig_srcs FROM complex_fields WHERE lemma=%s""",
 #!                                                   (self.lemma,)), 1)
-        
+
