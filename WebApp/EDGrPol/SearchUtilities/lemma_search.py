@@ -27,6 +27,7 @@ def full_lemma_search(request):
             else:
                 semantics = ''
             ret.append(ResponseView(lemma[0], lemma[1], lemma[2], semantics, lemma[3]))
+        article_constructor("1")
         db.close()
         return ret
     else:

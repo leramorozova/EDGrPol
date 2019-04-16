@@ -19,5 +19,15 @@ class Database:
         res = self.cur.fetchall()
         return res
 
+    def get_data(self, data, if_none):
+        try:
+            str_data = data[0][0]
+        except IndexError:
+            if if_none == 1:
+                str_data = None
+            else:
+                str_data = "нет данных"
+        return str_data
+
     def close(self):
         self.cur.close()

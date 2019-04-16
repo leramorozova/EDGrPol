@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import SearchForm
 from .SearchUtilities.lemma_search import full_lemma_search
+from .SearchUtilities.articles import FullTextArticle
 
 
 def index(request):
@@ -26,5 +27,5 @@ def search_result(request):
 
 
 def full_article(request, pk):
-    print(pk)
-    return render(request, 'EDGrPol/article.html', {'id': pk})
+    data = FullTextArticle(pk)
+    return render(request, 'EDGrPol/article.html', {'data': data})

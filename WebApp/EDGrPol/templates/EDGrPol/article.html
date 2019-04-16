@@ -1,7 +1,33 @@
 {% extends 'EDGrPol/base.html' %}
 
 {% block content %}
+<br>
+	<h2 class="mt-5">{{ data.lemma }}<small><small>, {{ data.pos }}</small></small></h2>
+<hr>
+	<p class="text-muted">oт {{ data.lang }} &laquo;{{ data.original }}&raquo;
+	{% if data.vasmer %}
+	<br>в интерпретации М. Фасмера: <i>&laquo;{{ data.vasmer }}&raquo;</i>
+	{% endif %}</p>
+	<p>{{ data.semantics }}
+	{% if data.etymology %}
+	<br>{{ data.etymology }}
+	{% endif %}</p>
+	{% if data.theme %}
+	<button type="button" class="btn btn-secondary btn-sm disabled">{{ data.theme }}</button>
+	{% endif %}
 
-	{{ id }}
+<hr>
+<h5><b>Источники</b></h5>
+<table class="example">
+	{% if data.hist_sources %}
+	<tr><td><b class="text-muted">исторические&nbsp;&nbsp;</b></td><td><small>{{ data.hist_sources }}</small></td></tr>
+	{% endif %}
+	{% if data.dict_sources %}
+	<tr><td><b class="text-muted">словари славянских языков&nbsp;&nbsp;</b></td><td><small>{{ data.dict_sources }}</small></td></tr>
+	{% endif %}
+</table>
+	
+
+
 
 {% endblock %}
