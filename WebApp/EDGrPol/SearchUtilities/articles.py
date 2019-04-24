@@ -45,6 +45,34 @@ class FullTextArticle:
             self.dict_sources = None
         else:
             self.dict_sources = '; '.join([el[0] for el in self.dict_sources]).rstrip().lstrip()
-#!        self.orig_sources = db.get_data(db.execute("""SELECT orig_srcs FROM complex_fields WHERE lemma=%s""",
-#!                                                   (self.lemma,)), 1)
+        self.citation = db.get_data(db.execute("""SELECT citation FROM complex_fields WHERE lemma=%s""",
+                                               (self.lemma,)), 1)
+        self.add_histor = db.get_data(db.execute("""SELECT add_histor FROM complex_fields WHERE lemma=%s""",
+                                                 (self.lemma,)), 1)
+        self.add_philol = db.get_data(db.execute("""SELECT add_philol FROM complex_fields WHERE lemma=%s""",
+                                                 (self.lemma,)), 1)
+        self.orig_sources = db.get_data(db.execute("""SELECT orig_srcs FROM complex_fields WHERE lemma=%s""",
+                                                   (self.lemma,)), 1)
+        self.hapax = db.get_data(db.execute("""SELECT if_hapax FROM simple_fields WHERE id=%s""", (lemma_id,)), 1)
+        self.mid_lang = db.get_data(db.execute("""SELECT if_middle_lang FROM simple_fields WHERE id=%s""",
+                                               (lemma_id,)), 1)
+        self.translated_sources = db.get_data(db.execute("""SELECT translated_srcs FROM simple_fields WHERE id=%s""",
+                                                         (lemma_id,)), 1)
+        self.rewrit_date = db.get_data(db.execute("""SELECT rewrit_date FROM simple_fields WHERE id=%s""",
+                                                  (lemma_id,)), 1)
+        self.orig_creation = db.get_data(db.execute("""SELECT orig_creation FROM simple_fields WHERE id=%s""",
+                                                    (lemma_id,)), 1)
+        self.phon_variants = db.execute("""SELECT variant FROM variants WHERE lemma=%s AND var_type=%s""",
+                                        (self.lemma, "phon",))
+        if len(self.phon_variants) == 0:
+            self.phon_variants = None
+        else:
+            self.phon_variants = ', '.join([el[0] for el in self.phon_variants]).rstrip().lstrip()
+        self.morph_variants = db.execute("""SELECT variant FROM variants WHERE lemma=%s AND var_type=%s""",
+                                        (self.lemma, "morph",))
+        if len(self.morph_variants) == 0:
+            self.morph_variants = None
+        else:
+            self.morph_variants = ', '.join([el[0] for el in self.morph_variants]).rstrip().lstrip()
+
 

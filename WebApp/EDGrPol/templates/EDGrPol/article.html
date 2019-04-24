@@ -6,15 +6,70 @@
 <hr>
 	<p class="text-muted">oт {{ data.lang }} &laquo;{{ data.original }}&raquo;
 	{% if data.vasmer %}
-	<br>в интерпретации М. Фасмера: <i>&laquo;{{ data.vasmer }}&raquo;</i>
+	<br>толькование М. Фасмера: <i>&laquo;{{ data.vasmer }}&raquo;</i>
 	{% endif %}</p>
 	<p>{{ data.semantics }}
 	{% if data.etymology %}
 	<br>{{ data.etymology }}
 	{% endif %}</p>
-	{% if data.theme %}
-	<button type="button" class="btn btn-secondary btn-sm disabled">{{ data.theme }}</button>
+	
+	{% if data.citation %}
+	<blockquote>{{ data.citation }}</blockquote>
 	{% endif %}
+
+	{% if data.theme %}
+	<button type="button" style="height:30px; vertical-align: middle;" class="btn btn-secondary btn-sm disabled"><small>{{ data.theme }}</small></button>
+	{% endif %}
+
+{% if data.morph_variants or data.phon_variants %}
+<hr>
+<h5><b>Варианты</b></h5>
+	{% if data.phon_variants %}
+	<b class="text-muted">фонетические</b>
+	<p>{{ data.phon_variants }}</p>
+	{% endif %}
+	{% if data.morph_variants %}
+	<b class="text-muted">морфологические</b>
+	<p>{{ data.morph_variants }}</p>
+	{% endif %}
+	{% endif %}
+
+
+{% if data.add_histor or data.add_philol %}
+<hr>
+<h5><b>Дополнительная информация</b></h5>
+	{% if data.add_histor %}
+	<b class="text-muted"><u>историческая</u></b>
+	<p>{{ data.add_histor }}</p>
+	{% endif %}
+	{% if data.add_philol %}
+	<b class="text-muted"><u>филологическая</u></b>
+	<p>{{ data.add_philol }}</p>
+	{% endif %}
+	{% endif %}
+
+<hr>
+<h5><b>Историческая справка</b></h5>
+<table class="example">
+	{% if data.orig_sources %}
+	<tr><td><b class="text-muted">оригинальные источники&nbsp;&nbsp;</b></td><td>{{ data.orig_sources }}</td></tr>
+	{% endif %}
+	{% if data.translated_sources %}
+	<tr><td><b class="text-muted">переводные источники&nbsp;&nbsp;</b></td><td>{{ data.translated_sources }}</td></tr>
+	{% endif %}
+	{% if data.rewrit_date %}
+	<tr><td><b class="text-muted">дата появления списков&nbsp;&nbsp;</b></td><td>{{ data.rewrit_date }}</td></tr>
+	{% endif %}
+	{% if data.orig_creation %}
+	<tr><td><b class="text-muted">дата создания источника&nbsp;&nbsp;</b></td><td>{{ data.orig_creation }}</td></tr>
+	{% endif %}
+	{% if data.hapax %}
+	<tr><td><b class="text-muted">гапакс&nbsp;&nbsp;</b></td><td>{{ data.hapax }}</td></tr>
+	{% endif %}
+	{% if data.mid_lang %}
+	<tr><td><b class="text-muted">язык-посредник&nbsp;&nbsp;</b></td><td>{{ data.mid_lang }}</td></tr>
+	{% endif %}
+</table>
 
 <hr>
 <h5><b>Источники</b></h5>
@@ -27,7 +82,4 @@
 	{% endif %}
 </table>
 	
-
-
-
 {% endblock %}

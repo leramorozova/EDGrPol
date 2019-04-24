@@ -1,9 +1,10 @@
 {% extends 'EDGrPol/base.html' %}
 
 {% block content %}
+
 <br>
-      <center><h2 class="mt-5">Электронный словарь грецизмов и полонизмов</h2></center>
-	<br>
+      <center><h2 class="mt-5">Алфавитный указатель</h2></center>
+<br>	
 	<div class="btn-toolbar mb-2 mb-md-0 justify-content-center">
 		<div class="btn-group mr-2 justify-content-center">
 			<button type="button" class="btn btn-sm btn-outline-secondary" onClick='location.href="alphabet?letter=а"'>А</button>
@@ -42,51 +43,27 @@
 			<button type="button" class="btn btn-sm btn-outline-secondary" onClick='location.href="alphabet?letter=ѩ"'>Ѩ</button>
 		</div>
         </div>
-<br>
-	<div class="tabs">
-    	<input id="lemma" type="radio" name="tabs" checked>
-    	<label for="lemma" title="Вкладка 1">Лемма</label>
- 
-    	<input id="cit" type="radio" name="tabs">
-    	<label for="cit" title="Вкладка 2">Цитата</label>
- 
-    	<input id="date" type="radio" name="tabs">
-    	<label for="date" title="Вкладка 3">Дата</label>
- 
-    	<input id="source" type="radio" name="tabs">
-    	<label for="source" title="Вкладка 4">Источник</label>
- 
-    	<section id="content-lemma">
-        <p>
-		<small class="text-muted">Поиск словарной статьи по лемме или ее фонетическому и морфологическому варианту.</small>
-        </p>
-    	</section>  
-    	<section id="content-cit">
-        <p>
-		<small class="text-muted">Поиск соответствий в цитатах, включенных в словарные статьи.</small>
-        </p>
-    	</section> 
-    	<section id="content-date">
-        <p>
-		<small class="text-muted">Поиск соответствий по датам, упомянутым в словарных статьях.</small>
-	</p>
-    	</section> 
-    	<section id="content-source">
-        <p>
-		<small class="text-muted">Поиск информации по источникам, упомянутым с ловарных статьях.</small>
-        </p>
-    	</section>    
-</div>
-	<form action="/search_result" method="get" required>
-  		<div class="form-group">
-    	<input type="text" name="lemma" class="form-control" placeholder="Введите слово...">
-  	</div>
-      	<center><button class="btn btn-lg btn-primary" type="submit">Поиск</button></center>
-	</form>
-	<br>
+<hr>
 
+{% if response %}
+	<div class="container">
+	<div class="row">
+	<div class="col-md-3">
+	{% for word in response %}
+		{% if word.semantics %}
+			<a href="{% url 'full_article' pk=word.id %}">{{ word.lemma }}</a><br>
+		{% else %}
+			<a href="{% url 'full_article' pk=word.id %}">{{ word.lemma }}</a></p>
+			</div>
+			<div class="col-md-3">
+		{% endif %}
+	{% endfor %}
+	</div>
+	</div>
+	</div>
+{% else %}
 <br>
+<center><h4>По этой букве слов пока нет!</h4></center>
 <br>
-{% load static %}
-<center><img height="130" src="{% static "/EDGrPol/emblem.jpg" %}" alt="emblem"></center>
+{% endif %}
 {% endblock %}

@@ -24,14 +24,127 @@
 	.example {
             padding: 1px; /* Поля */
             white-space: pre;
-            }
+	    table-layout: fixed;
+	 }
+	blockquote {
+  	padding: 2px 20px;
+  	margin: 0 0 20px;
+  	font-size: 17.5px;
+  	/* изменить цвет полоски */
+  	border-left: 5px solid #808080; /* 5px solid #eee; */
+  	/* изменит цвет текста */
+  	color: #808080;
+	}
+	/* Базовый контейнер табов */
+	.tabs {
+	height: 90px;
+	min-width: 320px;
+	max-width: 1200px;
+	padding: 0px;
+	margin: 0 auto;
+	}
+	/* Стили секций с содержанием */
+	.tabs>section {
+	display: none;
+	padding: 15px;
+	background: #fff;
+	border: 1px solid #ddd;
+	}
+	.tabs>section>p {
+	margin: 0 0 5px;
+	line-height: 1.5;
+	color: #383838;
+	/* прикрутим анимацию */
+	-webkit-animation-duration: 0s;
+	animation-duration: 0s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-name: fadeIn;
+	animation-name: fadeIn;
+	}
+	/* Описываем анимацию свойства opacity */
+ 
+	@-webkit-keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+	}
+	@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+	}
+	/* Прячем чекбоксы */
+	.tabs>input {
+	display: none;
+	position: absolute;
+	}
+	/* Стили переключателей вкладок (табов) */
+	.tabs>label {
+	display: inline-block;
+	margin: 0 0 -1px;
+	padding: 10px 25px;
+	height: 40px;
+	font-weight: 600;
+	text-align: center;
+	color: #aaa;
+	border: 0px solid #ddd;
+	border-width: 1px 1px 1px 1px;
+	background: #f1f1f1;
+	border-radius: 3px 3px 0 0;
+	}
+	
+	/* Изменения стиля переключателей вкладок при наведении */
+ 
+	.tabs>label:hover {
+	color: #888;
+	cursor: pointer;
+	}
+	/* Стили для активной вкладки */
+	.tabs>input:checked+label {
+	color: #555;
+	border-top: 1px solid #0C9CE9;
+	border-bottom: 1px solid #fff;
+	background: #fff;
+	}
+	/* Активация секций с помощью псевдокласса :checked */
+	#lemma:checked~#content-lemma, #cit:checked~#content-cit, #date:checked~#content-date, #source:checked~#content-source {
+	display: block;
+	}
+	/* Убираем текст с переключателей 
+	* и оставляем иконки на малых экранах
+	*/
+ 
+	@media screen and (max-width: 680px) {
+	.tabs>label {
+		font-size: 0;
+	}
+	.tabs>label:before {
+		margin: 0;
+		font-size: 18px;
+	}
+	}
+	/* Изменяем внутренние отступы 
+	*  переключателей для малых экранов
+	*/
+	@media screen and (max-width: 400px) {
+	.tabs>label {
+		padding: 15px;
+	}
+	}
 	</style>
     <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet">
     <title>ЭСГрП</title>
   </head>
   <body>
-	<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light mb-4">
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark mb-4">
   <a class="navbar-brand" href="/"><b>ЭСГрП</b></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -41,9 +154,6 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="#">&nbsp;&nbsp;&nbsp;&nbsp;<span class="sr-only">(current)</span></a>
-      </li>
-	<li class="nav-item active">
-        <a class="nav-link" href="#">&nbsp;&nbsp;Алфавитный указатель&nbsp;&nbsp;&nbsp;&nbsp;</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">О проекте</a>

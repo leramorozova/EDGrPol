@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import SearchForm
-from .SearchUtilities.lemma_search import full_lemma_search
+from .SearchUtilities.lemma_search import full_lemma_search, alphabet_search
 from .SearchUtilities.articles import FullTextArticle
 
 
@@ -10,11 +10,17 @@ def index(request):
     return render(request, 'EDGrPol/index.html', {'form': form})
 
 
+def alphabet(request):
+    letter = request.GET['letter']
+    response = alphabet_search(letter)
+    return render(request, 'EDGrPol/alphabet.html', {"response": response})
+
+
 def search_result(request):
     lemma = request.GET['lemma']
     articles = full_lemma_search(lemma)
     page = request.GET.get('page')
-    if len(articles) == 0:
+    if articles is None:
         return render(request, 'EDGrPol/failed_result.html', {"lemma": lemma})
     paginator = Paginator(articles, 5)
     try:
