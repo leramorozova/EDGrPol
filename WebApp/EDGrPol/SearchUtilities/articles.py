@@ -4,6 +4,7 @@
 
 from .db_utils import Database
 
+
 class ResponseView:
     def __init__(self, id, lemma, original, semantics, lang):
         self.id = id
@@ -14,6 +15,27 @@ class ResponseView:
             self.lang = "греч."
         else:
             self.lang = "польск."
+
+
+class CitSearchView:
+    def __init__(self, id, lemma, citation):
+        self.id = id
+        self.lemma = lemma
+        self.citation = citation
+
+
+class SourceSearchView:
+    def __init__(self, id, lemma, source):
+        self.id = id
+        self.lemma = lemma
+        self.source = source
+
+
+class DateSearchView:
+    def __init__(self, id, lemma, dates):
+        self.id = id
+        self.lemma = lemma
+        self.dates = dates
 
 
 class FullTextArticle:
