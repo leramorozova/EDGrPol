@@ -10,6 +10,10 @@ def index(request):
     return render(request, 'EDGrPol/index.html', {'form': form})
 
 
+def annotation(request):
+    return render(request, 'EDGrPol/annotation.html', {})
+
+
 def materials(request):
     return render(request, 'EDGrPol/materials.html', {})
 
