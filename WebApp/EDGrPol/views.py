@@ -88,3 +88,7 @@ def search_result(request):
 def full_article(request, pk):
     data = FullTextArticle(pk)
     return render(request, 'EDGrPol/article.html', {'data': data})
+
+
+def contacts(request):
+    return render(request, 'EDGrPol/contacts.html', {})

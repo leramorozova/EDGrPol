@@ -10,4 +10,5 @@ urlpatterns = [
     path('materials', views.materials, name='materials'),
     path('team', views.team, name='team'),
     path('annotation', views.annotation, name='annotation'),
+    path('contacts', views.contacts, name='contacts')
 ]
