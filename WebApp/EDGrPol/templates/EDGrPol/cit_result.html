@@ -4,7 +4,7 @@
       <h3 class="mt-5">{{ lemma }}</h3>
 	{% for article in response %}
 		<hr>
-		<a href="{% url 'full_article' pk=article.id %}">{{ article.lemma }}</a>
+		<a href="{% url 'full_article' pk=article.id %}">{{ article.lemma_rus }}</a>
 		<br>
 		{% autoescape off %}
 		<small class="text-muted">{{ article.citation }}</small>

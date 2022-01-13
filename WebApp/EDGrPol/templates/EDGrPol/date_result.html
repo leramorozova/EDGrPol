@@ -4,9 +4,29 @@
       <h3 class="mt-5">{{ lemma }}</h3>
 	{% for article in response %}
 		<hr>
-		<a href="{% url 'full_article' pk=article.id %}">{{ article.lemma }}</a>
+		<a href="{% url 'full_article' pk=article.id %}">{{ article.lemma_rus }}</a>
 		<br>
-		<small class="text-muted">{{ article.dates }}</small>
+		{% autoescape off %}
+			{% if article.orig_srcs %}
+				<small class="text-muted"><b>оригинальные источники: </b>{{ article.orig_srcs }}</small><br>
+			{% endif %}
+
+			{% if article.orig_creation %}
+				<small class="text-muted"><b>дата появления источника: </b>{{ article.orig_creation }}</small><br>
+			{% endif %}
+
+			{% if article.translated_srcs %}
+			<small class="text-muted"><b>переводные источники: </b>{{ article.translated_srcs }}</small><br>
+			{% endif %}
+
+			{% if article.rewrit_date %}
+			<small class="text-muted"><b>дата создания списка: </b>{{ article.rewrit_date }}</small><br>
+			{% endif %}
+
+			{% if article.citation %}
+			<small class="text-muted"><b>дата первой и ранней фиксации: </b>{{ article.citation }}</small><br>
+			{% endif %}
+		{% endautoescape %}
 	{% endfor %}
 <hr>
 <br>

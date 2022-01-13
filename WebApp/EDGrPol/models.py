@@ -8,11 +8,12 @@
 from django.db import models
 
 
-class SimpleFields(models.Model):
+class Article(models.Model):
     id = models.IntegerField(primary_key=True)  # AutoField?
     lemma_rus = models.TextField()
+    deriv_source = models.TextField()
     pos = models.TextField()
-    lemma_greek = models.TextField()
+    lemma_orig = models.TextField()
     if_hapax = models.TextField()
     if_middle_lang = models.TextField()
     vasmer = models.TextField()
@@ -21,14 +22,6 @@ class SimpleFields(models.Model):
     orig_creation = models.TextField()
     theme = models.TextField()
     lang = models.TextField()
-
-    class Meta:
-        managed = False
-        db_table = 'simple_fields'
-
-
-class ComplexFields(models.Model):
-    lemma = models.TextField()
     etymology = models.TextField()
     semantics = models.TextField()
     slavic_dict = models.TextField()
@@ -36,30 +29,13 @@ class ComplexFields(models.Model):
     citation = models.TextField()
     add_philol = models.TextField()
     add_histor = models.TextField()
-    lang = models.TextField()
+    historic_sources = models.TextField()
+    slavic_sources = models.TextField()
+    phonetic_variants = models.TextField()
+    morph_variants = models.TextField()
+    linking_references = models.TextField()
 
     class Meta:
         managed = False
-        db_table = 'complex_fields'
+        db_table = 'articles'
 
-
-class Sources(models.Model):
-    lemma = models.TextField()
-    source = models.TextField()
-    type = models.TextField()
-    lang = models.TextField()
-
-    class Meta:
-        managed = False
-        db_table = 'sources'
-
-
-class Variants(models.Model):
-    lemma = models.TextField()
-    var_type = models.TextField()
-    variant = models.TextField()
-    lang = models.TextField()
-
-    class Meta:
-        managed = False
-        db_table = 'variants'
