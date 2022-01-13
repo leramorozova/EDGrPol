@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2qd(t*xs1gl^o!stxyve$%$2(mlwjou#ixcnm+9)fv4&s^qv^5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'lingconlab.ru', "*"]
 
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'EDGrPol',
+    'EDGrPol'
 ]
 
 MIDDLEWARE = [
@@ -80,7 +80,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'GrPolDict.db'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

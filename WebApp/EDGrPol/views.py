@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import SearchForm
-from .SearchUtilities.lemma_search import full_lemma_search, alphabet_search, cit_search, source_search, date_search
-from .SearchUtilities.articles import FullTextArticle
+from .SearchUtilities.lemma_search import full_lemma_search, alphabet_search, cit_search, source_search, date_search, \
+    get_full_article
 
 
 def index(request):
@@ -36,7 +36,7 @@ def search_result(request):
         page = request.GET.get('page')
         if articles is None:
             return render(request, 'EDGrPol/failed_result.html', {"lemma": lemma})
-        paginator = Paginator(articles, 5)
+        paginator = Paginator(articles, 7)
         try:
             response = paginator.page(page)
         except PageNotAnInteger:
@@ -49,7 +49,7 @@ def search_result(request):
         page = request.GET.get('page')
         if articles is None:
             return render(request, 'EDGrPol/failed_result.html', {"lemma": lemma})
-        paginator = Paginator(articles, 5)
+        paginator = Paginator(articles, 7)
         try:
             response = paginator.page(page)
         except PageNotAnInteger:
@@ -62,7 +62,7 @@ def search_result(request):
         page = request.GET.get('page')
         if articles is None:
             return render(request, 'EDGrPol/failed_result.html', {"lemma": lemma})
-        paginator = Paginator(articles, 5)
+        paginator = Paginator(articles, 7)
         try:
             response = paginator.page(page)
         except PageNotAnInteger:
@@ -86,7 +86,7 @@ def search_result(request):
 
 
 def full_article(request, pk):
-    data = FullTextArticle(pk)
+    data = get_full_article(pk)
     return render(request, 'EDGrPol/article.html', {'data': data})
 
 

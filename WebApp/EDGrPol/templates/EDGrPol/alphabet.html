@@ -1,5 +1,4 @@
 {% extends 'EDGrPol/base.html' %}
-
 {% block content %}
 
 <br>
@@ -51,21 +50,21 @@
 	<div class="container">
 	<div class="row">
 	<div class="col-md-3">
-	{% for word in response %}
-		{% if word.semantics %}
-			<a href="{% url 'full_article' pk=word.id %}">{{ word.lemma }}</a><br>
-		{% else %}
-			<a href="{% url 'full_article' pk=word.id %}">{{ word.lemma }}</a></p>
-			</div>
-			<div class="col-md-3">
-		{% endif %}
-	{% endfor %}
+		{% for word in response %}
+			{% if forloop.counter0 != 0 and forloop.counter0|divisibleby:25 %}
+				<a href="{% url 'full_article' pk=word.id %}">{{ word.lemma_rus }}</a></p>
+				</div>
+				<div class="col-md-3">
+			{% else %}
+				<a href="{% url 'full_article' pk=word.id %}">{{ word.lemma_rus }}</a><br>
+			{% endif %}
+		{% endfor %}
 	</div>
 	</div>
 	</div>
 {% else %}
-<br>
-<center><h4>По этой букве слов пока нет!</h4></center>
-<br>
+	<br>
+	<center><h4>По этой букве слов пока нет!</h4></center>
+	<br>
 {% endif %}
 {% endblock %}

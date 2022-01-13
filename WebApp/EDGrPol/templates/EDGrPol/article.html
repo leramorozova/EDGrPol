@@ -2,37 +2,44 @@
 
 {% block content %}
 <br>
-	<h2 class="mt-5">{{ data.lemma }}<small><small>, {{ data.pos }}</small></small></h2>
+	<h2 class="mt-5">{{ data.lemma_rus }}<small><small>, {{ data.pos }}</small></small></h2>
 <hr>
-	<p class="text-muted">oт {{ data.lang }} &laquo;{{ data.original }}&raquo;
+	<p class="text-muted">
+	{% if data.lemma_orig %}
+		oт {{ data.lang }} &laquo;{{ data.lemma_orig }}&raquo;
+	{% endif %}
 	{% if data.vasmer %}
-	<br>толькование М. Фасмера: <i>&laquo;{{ data.vasmer }}&raquo;</i>
+		<br>толкование М. Фасмера: <i>&laquo;{{ data.vasmer }}&raquo;</i>
+	{% endif %}
+	{% if data.deriv_source %}
+		<br>источник деривации: <i>&laquo;{{ data.deriv_source }}&raquo;</i>
 	{% endif %}</p>
-	<p>{{ data.semantics }}
-	{% if data.etymology %}
-	<br>{{ data.etymology }}
-	{% endif %}</p>
+	<p>{{ data.semantics }} </p>
 	
 	{% if data.citation %}
 	<blockquote>{{ data.citation }}</blockquote>
 	{% endif %}
 
+	{% if data.etymology %}
+	<p> <b class="text-muted">Этимология </b> <br> {{ data.etymology }}
+	{% endif %}</p>
+
 	{% if data.theme %}
 	<button type="button" style="height:30px; vertical-align: middle;" class="btn btn-secondary btn-sm disabled"><small>{{ data.theme }}</small></button>
 	{% endif %}
 
-{% if data.morph_variants or data.phon_variants %}
+{% if data.morph_variants or data.phonetic_variants %}
 <hr>
 <h5><b>Варианты</b></h5>
-	{% if data.phon_variants %}
+	{% if data.phonetic_variants %}
 	<b class="text-muted">фонетические</b>
-	<p>{{ data.phon_variants }}</p>
+	<p>{{ data.phonetic_variants }}</p>
 	{% endif %}
 	{% if data.morph_variants %}
 	<b class="text-muted">морфологические</b>
 	<p>{{ data.morph_variants }}</p>
 	{% endif %}
-	{% endif %}
+{% endif %}
 
 
 {% if data.add_histor or data.add_philol %}
@@ -46,40 +53,48 @@
 	<b class="text-muted"><u>филологическая</u></b>
 	<p>{{ data.add_philol }}</p>
 	{% endif %}
-	{% endif %}
+{% endif %}
 
+{% if data.rewrit_date or data.orig_creation or data.if_hapax or data.if_mid_lang %}
 <hr>
 <h5><b>Историческая справка</b></h5>
 <table class="example">
-	{% if data.orig_sources %}
-	<tr><td><b class="text-muted">оригинальные источники&nbsp;&nbsp;</b></td><td>{{ data.orig_sources }}</td></tr>
-	{% endif %}
-	{% if data.translated_sources %}
-	<tr><td><b class="text-muted">переводные источники&nbsp;&nbsp;</b></td><td>{{ data.translated_sources }}</td></tr>
-	{% endif %}
 	{% if data.rewrit_date %}
 	<tr><td><b class="text-muted">дата появления списков&nbsp;&nbsp;</b></td><td>{{ data.rewrit_date }}</td></tr>
 	{% endif %}
 	{% if data.orig_creation %}
 	<tr><td><b class="text-muted">дата создания источника&nbsp;&nbsp;</b></td><td>{{ data.orig_creation }}</td></tr>
 	{% endif %}
-	{% if data.hapax %}
-	<tr><td><b class="text-muted">гапакс&nbsp;&nbsp;</b></td><td>{{ data.hapax }}</td></tr>
+	{% if data.if_hapax %}
+	<tr><td><b class="text-muted">гапакс&nbsp;&nbsp;</b></td><td>{{ data.if_hapax }}</td></tr>
 	{% endif %}
-	{% if data.mid_lang %}
-	<tr><td><b class="text-muted">язык-посредник&nbsp;&nbsp;</b></td><td>{{ data.mid_lang }}</td></tr>
+	{% if data.if_mid_lang %}
+	<tr><td><b class="text-muted">язык-посредник&nbsp;&nbsp;</b></td><td>{{ data.if_mid_lang }}</td></tr>
 	{% endif %}
 </table>
+{% endif %}
 
 <hr>
 <h5><b>Источники</b></h5>
 <table class="example">
-	{% if data.hist_sources %}
-	<tr><td><b class="text-muted">исторические&nbsp;&nbsp;</b></td><td><small>{{ data.hist_sources }}</small></td></tr>
+	{% if data.orig_srcs %}
+	<tr><td><b class="text-muted">оригинальные источники&nbsp;&nbsp;</b></td><td><small>{{ data.orig_srcs }}</small></td></tr>
 	{% endif %}
-	{% if data.dict_sources %}
-	<tr><td><b class="text-muted">словари славянских языков&nbsp;&nbsp;</b></td><td><small>{{ data.dict_sources }}</small></td></tr>
+	{% if data.translated_srcs %}
+	<tr><td><b class="text-muted">переводные источники&nbsp;&nbsp;</b></td><td><small>{{ data.translated_srcs }}</small></td></tr>
+	{% endif %}
+	{% if data.slavic_sources %}
+	<tr><td><b class="text-muted">словари восточнославянских языков&nbsp;&nbsp;</b></td><td><small>{{ data.slavic_sources }}</small></td></tr>
+	{% endif %}
+	{% if data.historic_sources %}
+	<tr><td><b class="text-muted">исторические словари русского языка&nbsp;&nbsp;</b></td><td><small>{{ data.historic_sources }}</small></td></tr>
 	{% endif %}
 </table>
+
+{% if data.linking_references %}
+	<hr>
+	<h5><b>Связывающие отсылки</b></h5>
+	<p>{{ data.linking_references }}</p>
+{% endif %}
 	
 {% endblock %}
