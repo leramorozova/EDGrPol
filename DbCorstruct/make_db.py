@@ -20,19 +20,20 @@ def makefile():
                 rewrit_date TEXT NOT NULL,
                 orig_creation TEXT NOT NULL,
                 theme TEXT NOT NULL,
-                lang TEXT NOT NULL);
+                lang TEXT NOT NULL,
+                etymology TEXT NOT NULL,
+                    semantics TEXT NOT NULL,
+                slavic_dict TEXT NOT NULL,
+                orig_srcs TEXT NOT NULL,
+                citation TEXT NOT NULL,
+                add_philol TEXT NOT NULL,
+                add_histor TEXT NOT NULL);
                 """)
         db.execute("DROP TABLE IF EXISTS complex_fields")
         db.execute("""
                     CREATE TABLE complex_fields
                     (lemma TEXT NOT NULL,
-                    etymology TEXT NOT NULL,
-                    semantics TEXT NOT NULL,
-                    slavic_dict TEXT NOT NULL,
-                    orig_srcs TEXT NOT NULL,
-                    citation TEXT NOT NULL,
-                    add_philol TEXT NOT NULL,
-                    add_histor TEXT NOT NULL,
+                    
                     lang TEXT NOT NULL);
                     """)
         db.execute("DROP TABLE IF EXISTS sources")
@@ -167,7 +168,7 @@ def fill_variants(lang):
 
 def process_greek():
     print("Starting greek processing...")
-    lang = "greek"
+    lang = "греч."
     fill_simple_fields(lang)
     fill_complex_fields(lang)
     fill_sources(lang)
@@ -177,7 +178,7 @@ def process_greek():
 
 def process_polish():
     print("Starting polish processing...")
-    lang = "polish"
+    lang = "польск."
     fill_simple_fields(lang)
     fill_complex_fields(lang)
     fill_sources(lang)

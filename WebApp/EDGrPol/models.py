@@ -23,11 +23,11 @@ class SimpleFields(models.Model):
     lang = models.TextField()
 
     class Meta:
-        managed = False
         db_table = 'simple_fields'
 
 
 class ComplexFields(models.Model):
+    id = models.IntegerField(primary_key=True)
     lemma = models.TextField()
     etymology = models.TextField()
     semantics = models.TextField()
@@ -39,27 +39,26 @@ class ComplexFields(models.Model):
     lang = models.TextField()
 
     class Meta:
-        managed = False
         db_table = 'complex_fields'
 
 
 class Sources(models.Model):
+    id = models.IntegerField(primary_key=True)
     lemma = models.TextField()
     source = models.TextField()
     type = models.TextField()
     lang = models.TextField()
 
     class Meta:
-        managed = False
         db_table = 'sources'
 
 
 class Variants(models.Model):
+    id = models.IntegerField(primary_key=True)
     lemma = models.TextField()
     var_type = models.TextField()
     variant = models.TextField()
     lang = models.TextField()
 
     class Meta:
-        managed = False
         db_table = 'variants'
