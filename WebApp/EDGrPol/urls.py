@@ -1,14 +1,17 @@
 from django.urls import path
+from django.views.generic import TemplateView
+
 from . import views
 
+
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('search_result', views.search_result, name='search_result'),
-    path('alphabet', views.alphabet, name='alphabet'),
-    path('failed_result', views.search_result, name='failed_result'),
-    path('article/<int:pk>/', views.full_article, name='full_article'),
-    path('materials', views.materials, name='materials'),
-    path('team', views.team, name='team'),
-    path('annotation', views.annotation, name='annotation'),
-    path('contacts', views.contacts, name='contacts')
+    path('', TemplateView.as_view(template_name="index.html")),
+    path('search_result', views.Search.as_view()),
+    path('alphabet', views.Alphabet.as_view()),
+    path('failed_result', views.Search.as_view()),
+    path('article/<int:pk>/', views.WordEntry.as_view(), name="full_article"),
+    path('materials', TemplateView.as_view(template_name="materials.html")),
+    path('team', TemplateView.as_view(template_name="team.html")),
+    path('annotation', TemplateView.as_view(template_name="annotation.html")),
+    path('contacts', TemplateView.as_view(template_name="contacts.html")),
 ]

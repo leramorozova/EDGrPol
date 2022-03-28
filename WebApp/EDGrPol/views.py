@@ -1,41 +1,46 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views import View
+from django.views.generic import TemplateView
+
+from .models import Article
 from .forms import SearchForm
-from .SearchUtilities.lemma_search import full_lemma_search, alphabet_search, cit_search, source_search, date_search, \
-    get_full_article
+from .SearchUtilities.lemma_search import lemma_search, cit_search, source_search, date_search
 
 
-def index(request):
-    form = SearchForm()
-    return render(request, 'EDGrPol/index.html', {'form': form})
+class Alphabet(View):
+    def get(self, request):
+        letter = request.GET['letter']
+        response = Article.objects.filter(lemma_rus__startswith=letter).order_by('lemma_rus')
+        return render(request, 'alphabet.html', {"response": response})
 
 
-def annotation(request):
-    return render(request, 'EDGrPol/annotation.html', {})
+class WordEntry(View):
+    def get(self, request, pk):
+        data = Article.objects.get(id=pk)
+        return render(request, 'article.html', {'data': data})
 
 
-def materials(request):
-    return render(request, 'EDGrPol/materials.html', {})
+class Search(View):
+    REQUEST_TYPES = {
+        "lemma": lemma_search,
+        "cit": cit_search,
+        "source": source_search,
+        "date": date_search
+    }
 
+    def get(self, request):
+        lemma = request.GET['lemma']
+        search_type = request.GET['tabs']
 
-def team(request):
-    return render(request, 'EDGrPol/team.html', {})
+        search_func = self.REQUEST_TYPES.get(search_type)
+        if search_func is None:
+            return render(request, 'failed_result.html', {"lemma": lemma})
 
-
-def alphabet(request):
-    letter = request.GET['letter']
-    response = alphabet_search(letter)
-    return render(request, 'EDGrPol/alphabet.html', {"response": response})
-
-
-def search_result(request):
-    lemma = request.GET['lemma']
-    search_type = request.GET['tabs']
-    if search_type == "lemma":
-        articles = full_lemma_search(lemma)
+        articles = search_func(lemma)
         page = request.GET.get('page')
-        if articles is None:
-            return render(request, 'EDGrPol/failed_result.html', {"lemma": lemma})
+        if not articles:
+            return render(request, 'failed_result.html', {"lemma": lemma})
         paginator = Paginator(articles, 7)
         try:
             response = paginator.page(page)
@@ -43,52 +48,4 @@ def search_result(request):
             response = paginator.page(1)
         except EmptyPage:
             response = paginator.page(paginator.num_pages)
-        return render(request, 'EDGrPol/search_result.html', {"lemma": lemma, "response": response})
-    elif search_type == "cit":
-        articles = cit_search(lemma)
-        page = request.GET.get('page')
-        if articles is None:
-            return render(request, 'EDGrPol/failed_result.html', {"lemma": lemma})
-        paginator = Paginator(articles, 7)
-        try:
-            response = paginator.page(page)
-        except PageNotAnInteger:
-            response = paginator.page(1)
-        except EmptyPage:
-            response = paginator.page(paginator.num_pages)
-        return render(request, 'EDGrPol/cit_result.html', {"lemma": lemma, "response": response})
-    elif search_type == "source":
-        articles = source_search(lemma)
-        page = request.GET.get('page')
-        if articles is None:
-            return render(request, 'EDGrPol/failed_result.html', {"lemma": lemma})
-        paginator = Paginator(articles, 7)
-        try:
-            response = paginator.page(page)
-        except PageNotAnInteger:
-            response = paginator.page(1)
-        except EmptyPage:
-            response = paginator.page(paginator.num_pages)
-        return render(request, 'EDGrPol/source_result.html', {"lemma": lemma, "response": response})
-    elif search_type == "date":
-        articles = date_search(lemma)
-        page = request.GET.get('page')
-        if articles is None:
-            return render(request, 'EDGrPol/failed_result.html', {"lemma": lemma})
-        paginator = Paginator(articles, 5)
-        try:
-            response = paginator.page(page)
-        except PageNotAnInteger:
-            response = paginator.page(1)
-        except EmptyPage:
-            response = paginator.page(paginator.num_pages)
-        return render(request, 'EDGrPol/date_result.html', {"lemma": lemma, "response": response})
-
-
-def full_article(request, pk):
-    data = get_full_article(pk)
-    return render(request, 'EDGrPol/article.html', {'data': data})
-
-
-def contacts(request):
-    return render(request, 'EDGrPol/contacts.html', {})
+        return render(request, f'{search_type}_result.html', {"lemma": lemma, "response": response})
