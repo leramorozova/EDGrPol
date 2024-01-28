@@ -22,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2qd(t*xs1gl^o!stxyve$%$2(mlwjou#ixcnm+9)fv4&s^qv^5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'lingconlab.ru', "*"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
