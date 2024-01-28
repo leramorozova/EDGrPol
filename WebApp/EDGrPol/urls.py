@@ -14,4 +14,7 @@ urlpatterns = [
     path('team', TemplateView.as_view(template_name="team.html")),
     path('annotation', TemplateView.as_view(template_name="annotation.html")),
     path('contacts', TemplateView.as_view(template_name="contacts.html")),
+    path('main_dict_info', TemplateView.as_view(template_name="main_dict_info.html")),
+    path('article_structure', TemplateView.as_view(template_name="article_structure.html")),
+    path('shortenings', TemplateView.as_view(template_name="shortenings.html")),
 ]
